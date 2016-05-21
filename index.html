@@ -71,12 +71,12 @@
 											  }
 										  }
 										  if (!dn) {
-										  	FB.api(response.data[i].id+"?fields=cover", function (response) {
+											  var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + response.cover.source + "' /></a><br /><br />";
+										  	FB.api(response.data[i].id+"?fields=cover", function (response, data) {
 										  		var nd = document.createElement("span");
-										  	  	var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + response.cover.source + "' /></a><br /><br />";
 										  	  	nd.innerHTML = cn;
 										  	  	dv.appendChild(nd);
-											});
+											};
 										  }
 									  }
 								  }
