@@ -51,9 +51,15 @@
 			  if (response && !response.error) {
 				  for (var i=0; i < response.data.length; i++) {
 					  if (response.data[i].rsvp_status == "attending") {
+						  var d = new Date(response.data[i].start_time);
+						  var dd = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate() + "T";
 						  if (response.data[i].description && !response.data[i].description.match(/dinner|birthday|pool/gi)) {
 							  myevents.push(response.data[i]);
-							  tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&keyword=" + response.data[i].name.split(" ").splice(0,1).join(" ") + "&latlong=" + response.data[i].place.location.latitude + "," + response.data[i].place.location.longitude + "&radius=5&unit=miles";
+							  tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&keyword=" + response.data[i].name.split(" ").splice(0,1).join(" ") + "&startDateTime=" + dd + "18:00:00Z&endDateTime=" + dd + "07:00:00Z";
+							  if (response.data[i].place.location.latitude && response.data[i].place.location.longitude) {
+							  	tm.url += "&latlong=" + response.data[i].place.location.latitude + "," + response.data[i].place.location.longitude + "&radius=5&unit=miles";
+							  }
+							  
 							  tm.success = function(json) {
 								  if (json._embedded && json._embedded.events) {
 								  	console.log(json);
