@@ -36,7 +36,7 @@
 			  for (var i=0; i < dd.length; i++) {
 				  var dn = false;
 				  for (var k=0; k < dd[i].images.length; k++) {
-					  if (!dd[i].images[k].fallback && !dn && dd[i].images[k].width > 300) {
+					  if (!dd[i].images[k].fallback && !dn && dd[i].images[k].width == "320") {
 						  dn = true;
 						  var nd = document.createElement("span");
 						  var cn = "<a href='" + dd[i].url + "' target='_blank'><img src='" + dd[i].images[k].url + "' title='" + dd[i].name + "' width='320' height='240' /></a>";
