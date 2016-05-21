@@ -61,7 +61,7 @@
 									  var dd = json._embedded.events;
 									  var nd = document.createElement("div");
 									  for (var i=0; i < dd.length; i++) {
-										  nd.innerHTML = "<p>" + dd[i].name + "</p><img src='" + dd[i].images[0].url + "' width='250' />";
+										  nd.innerHTML = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + dd[i].images[0].url + "' width='250' /></a>";
 										  dv.appendChild(nd);
 									  }
 								  }
