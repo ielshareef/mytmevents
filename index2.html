@@ -39,7 +39,7 @@
 					  if (!dd[i].images[k].fallback && !dn && dd[i].images[k].width > 300) {
 						  dn = true;
 						  var nd = document.createElement("span");
-						  var cn = "<a href='" + dd[i].url + "' target='_blank'><img src='" + dd[i].images[k].url + "' width='320' height='240' /></a>";
+						  var cn = "<a href='" + dd[i].url + "' target='_blank'><img src='" + dd[i].images[k].url + "' title='" + dd[i].images[k].name + "' width='320' height='240' /></a>";
 						  console.log(cn);
 						  nd.innerHTML = cn;
 						  dv.appendChild(nd);
