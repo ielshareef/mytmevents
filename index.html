@@ -65,14 +65,17 @@
 											  if (!dd[i].images[k].fallback) {
 												dn = true;
 										  		var nd = document.createElement("span");
-										  	  	var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + dd[i].images[0].url + "' width='250' /></a><br /><br />";
+										  	  	var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + dd[i].images[0].url + "' /></a><br /><br />";
 										  	  	nd.innerHTML = cn;
 										  	  	dv.appendChild(nd);
 											  }
 										  }
 										  if (!dn) {
 										  	FB.api(response.data[i].id+"?fields=cover", function (response) {
-												console.log(response.cover.source);
+										  		var nd = document.createElement("span");
+										  	  	var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + response.cover.source + "' /></a><br /><br />";
+										  	  	nd.innerHTML = cn;
+										  	  	dv.appendChild(nd);
 											});
 										  }
 									  }
