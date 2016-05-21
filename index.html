@@ -60,24 +60,10 @@
 									  var dv = document.getElementById('content');
 									  var dd = json._embedded.events;
 									  for (var i=0; i < dd.length; i++) {
-										  var dn = false;
-										  for (var k=0; k < dd[i].images.length; k++) {
-											  if (!dd[i].images[k].fallback) {
-												dn = true;
-										  		var nd = document.createElement("span");
-										  	  	var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + dd[i].images[0].url + "' /></a><br /><br />";
-										  	  	nd.innerHTML = cn;
-										  	  	dv.appendChild(nd);
-											  }
-										  }
-										  if (!dn) {
-											  var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'>";
-										  	FB.api(response.data[i].id+"?fields=cover", function (response, data) {
-										  		var nd = document.createElement("span");
-										  	  	nd.innerHTML = cn + "<img src='" + response.cover.source + "' /></a><br /><br />";
-										  	  	dv.appendChild(nd);
-											});
-										  }
+								  		var nd = document.createElement("span");
+								  	  	var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + dd[i].images[0].url + "' /></a><br /><br />";
+								  	  	nd.innerHTML = cn;
+								  	  	dv.appendChild(nd);
 									  }
 								  }
 							  }
