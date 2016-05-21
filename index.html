@@ -71,10 +71,10 @@
 											  }
 										  }
 										  if (!dn) {
-											  var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + response.cover.source + "' /></a><br /><br />";
+											  var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'>";
 										  	FB.api(response.data[i].id+"?fields=cover", function (response, data) {
 										  		var nd = document.createElement("span");
-										  	  	nd.innerHTML = cn;
+										  	  	nd.innerHTML = cn + "<img src='" + response.cover.source + "' /></a><br /><br />";
 										  	  	dv.appendChild(nd);
 											});
 										  }
