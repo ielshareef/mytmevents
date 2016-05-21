@@ -33,8 +33,10 @@
 			  var dv = document.getElementById('content');
 			  var dd = json._embedded.events;
 			  for (var i=0; i < dd.length; i++) {
+				  var dn = false;
 				  for (var k=0; k < dd[i].images.length; k++) {
-					  if (!dd[i].images[k].fallback) {
+					  if (!dd[i].images[k].fallback && !dn) {
+						  dn = true;
 						  var nd = document.createElement("span");
 						  var cn = "<a href='" + dd[i].url + "' target='_blank'><img src='" + dd[i].images[k].url + "' width='320' height='240' /></a>";
 						  console.log(cn);
