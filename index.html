@@ -35,14 +35,14 @@
 	function myFacebookLogin() {
 	  FB.login(function(){
     		FB.api(
-    		    "/me/likes",
+    		    "/me/e",
     		    function (response) {
     		      if (response && !response.error) {
     				  console.log(response);
     		      }
     		    }
     		);
-	  }, {scope: 'public_profile,user_likes,user_location'});
+	  }, {scope: 'public_profile,user_likes,user_location,user_events'});
 	}
 	</script>
 	<button onclick="myFacebookLogin()">Login with Facebook</button>
