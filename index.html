@@ -55,7 +55,7 @@
 							  myevents.push(response.data[i]);
 							  tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&keyword=" + response.data[i].name;
 							  if (response.data[i].place.location) {
-							  	tm.url = tm.url + "&latlong=" +  + "," + response.data[i].place.location.longitude;
+							  	tm.url = tm.url + "&latlong=" + response.data[i].place.location.latitude + "," + response.data[i].place.location.longitude;
 							  }
 							  tm.success = function(json) {
 								  if (json._embedded && json._embedded.events) {
