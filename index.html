@@ -31,17 +31,22 @@
 
 <body>
 	<script>
+	var myevents = [];
+	var mylocation = '';
 	// Only works after `FB.init` is called
 	function myFacebookLogin() {
 	  FB.login(function(){
-    		FB.api(
-    		    "/me/events",
-    		    function (response) {
-    		      if (response && !response.error) {
-    				  console.log(response.data);
-    		      }
-    		    }
-    		);
+		  FB.api("/me/events", function (response) {
+			  if (response && !response.error) {
+				  for (var i=0; i < response.data.length; i++) {
+					  if (response.data[i].rsvp_status == "attending") {
+						  if (response.data[i].description && !response.data[i].description.match(/dinner|birthday|ride/gi)) {
+						  	myevents.push(response.data[i]);
+						  }					  
+					  }
+				  }
+		      }
+		  });
 	  }, {scope: 'public_profile,user_likes,user_location,user_events'});
 	}
 	</script>
