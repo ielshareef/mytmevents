@@ -58,6 +58,7 @@
 							  tm.success = function(json) {
 								  var nd = document.createElement("div");
 								  if (json._embedded && json._embedded.events) {
+									  console.log(json._embedded.events);
 									  var dv = document.getElementById('content');
 									  var dd = json._embedded.events;
 									  for (var i=0; i < dd.length; i++) {
