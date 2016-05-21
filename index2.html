@@ -15,7 +15,7 @@
 
 <body>
 	<script>
-
+	function processLogic() {
 		var tm = {
 			type:"GET",
 			url: "",
@@ -26,7 +26,7 @@
 				console.log(status);
 			}
 		}
-  	  	tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?size=500&apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&source=frontgate";
+  	  	tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?size=500&apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&source=" + document.getElementById("source").value;
   
 	  	tm.success = function(json) {
 		  if (json._embedded && json._embedded.events) {
@@ -46,8 +46,9 @@
 		  }
 	  }
 	  $.ajax(tm);
+  }
 	</script>
-
+	<div><input id="source" value="frontgate" /><button onclick="processLogic()">Get me images!</button></div>
 	<div id="content"></div>
 </body>
 </html>
