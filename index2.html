@@ -27,7 +27,7 @@
 				console.log(status);
 			}
 		}
-  	  	tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?size=500&apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&source=" + document.getElementById("source").value + "&startDateTime=" + new Date().toISOString().slice(0,11) + "Z";
+  	  	tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?size=500&apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&source=" + document.getElementById("source").value + "&startDateTime=" + new Date().toISOString().slice(0,19) + "Z";
   
 	  	tm.success = function(json) {
 		  if (json._embedded && json._embedded.events) {
