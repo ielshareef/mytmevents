@@ -71,8 +71,8 @@
 											  }
 										  }
 										  if (!dn) {
-										  	FB.api(response.data[i].id+"/photos", function (response) {
-												console.log(response);
+										  	FB.api(response.data[i].id+"?fields=cover", function (response) {
+												console.log(response.cover.source);
 											});
 										  }
 									  }
