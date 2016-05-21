@@ -51,12 +51,9 @@
 			  if (response && !response.error) {
 				  for (var i=0; i < response.data.length; i++) {
 					  if (response.data[i].rsvp_status == "attending") {
-						  if (response.data[i].description && !response.data[i].description.match(/dinner|birthday|party/gi)) {
+						  if (response.data[i].description && !response.data[i].description.match(/dinner|birthday/gi)) {
 							  myevents.push(response.data[i]);
 							  tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&keyword=" + response.data[i].name;
-							  if (response.data[i].place.location) {
-							  	tm.url = tm.url + "&range=5&unit=miles&latlong=" + response.data[i].place.location.latitude + "," + response.data[i].place.location.longitude;
-							  }
 							  tm.success = function(json) {
 								  if (json._embedded && json._embedded.events) {
 								  	console.log(json);
