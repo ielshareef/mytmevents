@@ -33,6 +33,16 @@
 	<script>
 	var myevents = [];
 	var mylocation = '';
+	var tm = {
+		type:"GET",
+		url:"https://app.ticketmaster.com/discovery/v2/events.json?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0",
+		success: function(json) {
+			console.log(json);
+		},
+		error: function(xhr, status, err) {
+			console.log(status);
+		}
+	}
 	// Only works after `FB.init` is called
 	function myFacebookLogin() {
 	  FB.login(function(){
@@ -40,8 +50,10 @@
 			  if (response && !response.error) {
 				  for (var i=0; i < response.data.length; i++) {
 					  if (response.data[i].rsvp_status == "attending") {
-						  if (response.data[i].description && !response.data[i].description.match(/dinner|birthday|ride/gi)) {
-						  	myevents.push(response.data[i]);
+						  if (response.data[i].description && !response.data[i].description.match(/dinner|birthday|party/gi)) {
+							  myevents.push(response.data[i]);
+							  tm.url = tm.url + "&keyword=" + response.data[i].name;
+							  $.ajax(tm);
 						  }					  
 					  }
 				  }
