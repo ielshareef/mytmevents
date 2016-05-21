@@ -17,14 +17,6 @@
   	      version    : 'v2.6'
   	    });
 		
-  		FB.api(
-  		    "/me/likes",
-  		    function (response) {
-  		      if (response && !response.error) {
-  				  console.log(response);
-  		      }
-  		    }
-  		);
   	  };
 
   	  (function(d, s, id){
@@ -38,6 +30,21 @@
 </head>
 
 <body>
-
+	<script>
+	// Only works after `FB.init` is called
+	function myFacebookLogin() {
+	  FB.login(function(){
+    		FB.api(
+    		    "/me/likes",
+    		    function (response) {
+    		      if (response && !response.error) {
+    				  console.log(response);
+    		      }
+    		    }
+    		);
+	  }, {scope: 'publish_actions'});
+	}
+	</script>
+	<button onclick="myFacebookLogin()">Login with Facebook</button>
 </body>
 </html>
