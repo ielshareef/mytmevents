@@ -56,10 +56,10 @@
 							  tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&keyword=" + response.data[i].name;
 							  
 							  tm.success = function(json) {
+								  var nd = document.createElement("div");
 								  if (json._embedded && json._embedded.events) {
 									  var dv = document.getElementById('content');
 									  var dd = json._embedded.events;
-									  var nd = document.createElement("div");
 									  for (var i=0; i < dd.length; i++) {
 										  nd.innerHTML = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + dd[i].images[0].url + "' width='250' /></a>";
 										  dv.appendChild(nd);
