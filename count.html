@@ -46,12 +46,13 @@
 			for (var key in URLs) {
 				if (URLs.hasOwnProperty(key)) {
 		  	  		tm.url = URLs[key];
+					var k = key;
 			  		tm.success = function(json) {
 				  		if (json.page) {
 					  		var dv = document.getElementById('content');
 					  	  	var dd = json.page;
 					  	  	var nd = document.createElement("div");
-					  	  	var cn = "<p>The total for " + key + " is: " + dd.totalElements + "</p>";
+					  	  	var cn = "<p>The total for " + k + " is: " + dd.totalElements + "</p>";
 					  	  	nd.innerHTML = cn;
 					  	  	dv.appendChild(nd);
 				  	  	}
