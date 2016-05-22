@@ -2,13 +2,16 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-
-  <title>Sanity Check – Discovery API</title>
-
-  <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+	<meta charset="utf-8">
+	<title>Sanity Check – Discovery API</title>
+	<style>
+		.source {
+			display: inline;
+		}
+	</style>
+	<!--[if lt IE 9]>
+	  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 </head>
@@ -52,6 +55,7 @@
 						  		var dv = document.getElementById('content');
 						  	  	var dd = json.page;
 						  	  	var nd = document.createElement("div");
+								nd.className = "source";
 						  	  	var cn = "<p>The total for " + k + " is: " + dd.totalElements + "</p>";
 						  	  	nd.innerHTML = cn;
 						  	  	dv.appendChild(nd);
