@@ -31,7 +31,7 @@
 			"ticketmaster-ottawa": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=103&ticketmaster&size=1&apikey=" + KEY
 		};
 		
-		function processLogic() {
+		function runIt() {
 			document.getElementById('content').innerHTML = '';
 			var tm = {
 				type:"GET",
@@ -43,23 +43,26 @@
 					console.log(status);
 				}
 			}
-  	  		tm.url = URLs[document.getElementById("source").value];
+			for (var key in URLs) {
+				if (URLs.hasOwnProperty(key)) {
+		  	  		tm.url = URLs[document.getElementById("source").value];
   
-	  		tm.success = function(json) {
-		  		if (json.page) {
-			  		var dv = document.getElementById('content');
-			  	  	var dd = json.page;
-			  	  	var nd = document.createElement("span");
-			  	  	var cn = "The total for " + document.getElementById("source").value + "is: " + dd.totalElements;
-			  	  	console.log(cn);
-			  	  	nd.innerHTML = cn;
-			  	  	dv.appendChild(nd);
-		  	  	}
-	  	  	}
-	  		$.ajax(tm);
+			  		tm.success = function(json) {
+				  		if (json.page) {
+					  		var dv = document.getElementById('content');
+					  	  	var dd = json.page;
+					  	  	var nd = document.createElement("div");
+					  	  	var cn = "<p>The total for " + key + " is: " + dd.totalElements + "</p>";
+					  	  	nd.innerHTML = cn;
+					  	  	dv.appendChild(nd);
+				  	  	}
+			  	  	}
+			  		$.ajax(tm);
+			  	}
+			}
   }
 	</script>
-	<div><p><input id="source" value="frontgate" /><button onclick="processLogic()">Get me images!</button></p></div>
+	<div><p><button onclick="runIt()">Let's check this out!</button></p></div>
 	<div id="content"></div>
 </body>
 </html>
