@@ -19,23 +19,71 @@
 <body>
 	<script>
 		var KEY = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
-		var URLs = {
-			"all": "https://app.ticketmaster.com/discovery/v2/events.json?size=1&apikey=" + KEY,
-			"ticketmaster": "https://app.ticketmaster.com/discovery/v2/events.json?source=ticketmaster&size=1&apikey=" + KEY,
-			"universe": "https://app.ticketmaster.com/discovery/v2/events.json?source=universe&size=1&apikey=" + KEY,
-			"frontgate": "https://app.ticketmaster.com/discovery/v2/events.json?source=frontgate&size=1&apikey=" + KEY,
-			"ticketweb": "https://app.ticketmaster.com/discovery/v2/events.json?source=ticketweb&size=1&apikey=" + KEY,
-			"ticketsnow": "https://app.ticketmaster.com/discovery/v2/events.json?source=ticketsnow&size=1&apikey=" + KEY,
-			"ticketmaster-us": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=51&ticketmaster&size=1&apikey=" + KEY,
-			"ticketmaster-la": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=27&ticketmaster&size=1&apikey=" + KEY,
-			"ticketmaster-ny": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=35&ticketmaster&size=1&apikey=" + KEY,
-			"ticketmaster-ca": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=101&ticketmaster&size=1&apikey=" + KEY,
-			"ticketmaster-toronto": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=102&ticketmaster&size=1&apikey=" + KEY,
-			"ticketmaster-ottawa": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=103&ticketmaster&size=1&apikey=" + KEY
+		var EVENTS = {
+			"all": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?size=1&apikey=" + KEY,
+				"name": "All Events",
+				"logo": ""
+			}, {
+			"ticketmaster": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?source=ticketmaster&size=1&apikey=" + KEY,
+				"name": "All Ticketmaster",
+				"logo": ""
+			}, {
+			"universe": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?source=universe&size=1&apikey=" + KEY,
+				"name": "All Universe",
+				"logo": ""
+			}, {
+			"frontgate": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?source=frontgate&size=1&apikey=" + KEY,
+				"name": "All FrontGate",
+				"logo": ""
+			}, {
+			"ticketweb": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?source=ticketweb&size=1&apikey=" + KEY,
+				"name": "All Ticketweb",
+				"logo": ""
+			}, {
+			"ticketsnow": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?source=ticketsnow&size=1&apikey=" + KEY,
+				"name": "All TicketsNow",
+				"logo": ""
+			}, {
+			"ticketmaster-us": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=51&ticketmaster&size=1&apikey=" + KEY,
+				"name": "All TM US",
+				"logo": ""
+			}, {
+			"ticketmaster-la": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=27&ticketmaster&size=1&apikey=" + KEY,
+				"name": "All TM Los Angeles",
+				"logo": ""
+			}, {
+			"ticketmaster-ny": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=35&ticketmaster&size=1&apikey=" + KEY,
+				"name": "All TM New York",
+				"logo": ""
+			}, {
+			"ticketmaster-ca": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=101&ticketmaster&size=1&apikey=" + KEY,
+				"name": "All TM Canada",
+				"logo": ""
+			}, {
+			"ticketmaster-toronto": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=102&ticketmaster&size=1&apikey=" + KEY,
+				"name": "All TM Toronto",
+				"logo": ""
+			}, {
+			"ticketmaster-ottawa": {
+				"url": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=103&ticketmaster&size=1&apikey=" + KEY,
+				"name": "All TM Ottawa",
+				"logo": ""
+			}
 		};
 		
 		function runIt() {
-			document.getElementById('content').innerHTML = '';
+			document.getElementById('events-content').innerHTML = '';
 			var tm = {
 				type:"GET",
 				url: "",
@@ -46,17 +94,17 @@
 					console.log(status);
 				}
 			}
-			for (var key in URLs) {
-				if (URLs.hasOwnProperty(key)) {
-		  	  		tm.url = URLs[key];
+			for (var key in EVENTS) {
+				if (EVENTS.hasOwnProperty(key)) {
+		  	  		tm.url = EVENTS[key].url;
 			  		tm.success = function(k) {
 						return function(json) {
 					  		if (json.page) {
-						  		var dv = document.getElementById('content');
+						  		var dv = document.getElementById('events-content');
 						  	  	var dd = json.page;
 						  	  	var nd = document.createElement("div");
 								nd.className = "source";
-						  	  	var cn = "<p>The total for " + k + " is: " + dd.totalElements + "</p>";
+						  	  	var cn = "<p>The total for " + EVENTS[k].name + " is: " + dd.totalElements + "</p>";
 						  	  	nd.innerHTML = cn;
 						  	  	dv.appendChild(nd);
 							}
@@ -68,6 +116,6 @@
   }
 	</script>
 	<div><p><button onclick="runIt()">Let's check this out!</button></p></div>
-	<div id="content"></div>
+	<div id="events-content"></div>
 </body>
 </html>
