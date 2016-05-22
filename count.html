@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Sanity Check – Discovery API</title>
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+</head>
+
+<body>
+	<script>
+		var KEY = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
+		var URLs = {
+			"all": "https://app.ticketmaster.com/discovery/v2/events.json?size=1&apikey=" + KEY,
+			"ticketmaster": "https://app.ticketmaster.com/discovery/v2/events.json?source=ticketmaster&size=1&apikey=" + KEY,
+			"universe": "https://app.ticketmaster.com/discovery/v2/events.json?source=universe&size=1&apikey=" + KEY,
+			"frontgate": "https://app.ticketmaster.com/discovery/v2/events.json?source=frontgate&size=1&apikey=" + KEY,
+			"ticketweb": "https://app.ticketmaster.com/discovery/v2/events.json?source=ticketweb&size=1&apikey=" + KEY,
+			"ticketsnow": "https://app.ticketmaster.com/discovery/v2/events.json?source=ticketsnow&size=1&apikey=" + KEY,
+			"ticketmaster-us": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=51&ticketmaster&size=1&apikey=" + KEY,
+			"ticketmaster-la": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=27&ticketmaster&size=1&apikey=" + KEY,
+			"ticketmaster-ny": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=35&ticketmaster&size=1&apikey=" + KEY,
+			"ticketmaster-ca": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=101&ticketmaster&size=1&apikey=" + KEY,
+			"ticketmaster-toronto": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=102&ticketmaster&size=1&apikey=" + KEY,
+			"ticketmaster-ottawa": "https://app.ticketmaster.com/discovery/v2/events.json?marketId=103&ticketmaster&size=1&apikey=" + KEY
+		};
+		
+		function processLogic() {
+			document.getElementById('content').innerHTML = '';
+			var tm = {
+				type:"GET",
+				url: "",
+				success: function(json) {
+					console.log(json);
+				},
+				error: function(xhr, status, err) {
+					console.log(status);
+				}
+			}
+  	  		tm.url = URLs[document.getElementById("source").value];
+  
+	  		tm.success = function(json) {
+		  		if (json.page) {
+			  		var dv = document.getElementById('content');
+			  	  	var dd = json.page;
+			  	  	var nd = document.createElement("span");
+			  	  	var cn = "The total for " + document.getElementById("source").value + "is: " + dd.totalElements;
+			  	  	console.log(cn);
+			  	  	nd.innerHTML = cn;
+			  	  	dv.appendChild(nd);
+		  	  	}
+	  	  	}
+	  		$.ajax(tm);
+  }
+	</script>
+	<div><p><input id="source" value="frontgate" /><button onclick="processLogic()">Get me images!</button></p></div>
+	<div id="content"></div>
+</body>
+</html>
