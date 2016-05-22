@@ -45,8 +45,7 @@
 			}
 			for (var key in URLs) {
 				if (URLs.hasOwnProperty(key)) {
-		  	  		tm.url = URLs[document.getElementById("source").value];
-  
+		  	  		tm.url = URLs[key];
 			  		tm.success = function(json) {
 				  		if (json.page) {
 					  		var dv = document.getElementById('content');
