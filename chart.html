@@ -39,6 +39,7 @@ rect:hover {  fill:blue; }
 <body>
 <div id='dashboard'>
 </div>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 function dashboard(id, fData){
@@ -255,5 +256,226 @@ var freqData=[
 ,{State:'DEC',freq:{ticketmaster:162, universe:379, frontgate:471}}
 ];
 
-dashboard('#dashboard',freqData);
+var CNT = 0;
+var KEY = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
+var EVENTS = {
+	"tm-jan": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-01-01T00:00:00Z&endDateTime=2016-01-31T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 0
+	},
+	"tm-feb": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-02-01T00:00:00Z&endDateTime=2016-02-29T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 1
+	},
+	"tm-mar": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-03-01T00:00:00Z&endDateTime=2016-03-31T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 2
+	},
+	"tm-apr": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-04-01T00:00:00Z&endDateTime=2016-04-30T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 3
+	},
+	"tm-may": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-05-01T00:00:00Z&endDateTime=2016-05-31T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 4
+	},
+	"tm-june": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-06-01T00:00:00Z&endDateTime=2016-06-30T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 5
+	},
+	"tm-jul": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-07-01T00:00:00Z&endDateTime=2016-07-31T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 6
+	},
+	"tm-aug": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-08-01T00:00:00Z&endDateTime=2016-08-31T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 7
+	},
+	"tm-sep": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-09-01T00:00:00Z&endDateTime=2016-09-31T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 8
+	},
+	"tm-oct": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-10-01T00:00:00Z&endDateTime=2016-10-30T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 9
+	},
+	"tm-nov": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-11-01T00:00:00Z&endDateTime=2016-11-30T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 10
+	},
+	"tm-dec": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-12-01T00:00:00Z&endDateTime=2016-12-31T23:59:59Z&source=ticketmaster&size=1&apikey=" + KEY,
+		"key": "ticketmaster",
+		"index": 11
+	},
+	"uv-jan": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-01-01T00:00:00Z&endDateTime=2016-01-31T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 0
+	},
+	"uv-feb": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-02-01T00:00:00Z&endDateTime=2016-02-29T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 1
+	},
+	"uv-mar": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-03-01T00:00:00Z&endDateTime=2016-03-31T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 2
+	},
+	"uv-apr": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-04-01T00:00:00Z&endDateTime=2016-04-30T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 3
+	},
+	"uv-may": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-05-01T00:00:00Z&endDateTime=2016-05-31T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 4
+	},
+	"uv-june": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-06-01T00:00:00Z&endDateTime=2016-06-30T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 5
+	},
+	"uv-jul": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-07-01T00:00:00Z&endDateTime=2016-07-31T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 6
+	},
+	"uv-aug": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-08-01T00:00:00Z&endDateTime=2016-08-31T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 7
+	},
+	"uv-sep": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-09-01T00:00:00Z&endDateTime=2016-09-31T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 8
+	},
+	"uv-oct": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-10-01T00:00:00Z&endDateTime=2016-10-30T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 9
+	},
+	"uv-nov": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-11-01T00:00:00Z&endDateTime=2016-11-30T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 10
+	},
+	"uv-dec": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-12-01T00:00:00Z&endDateTime=2016-12-31T23:59:59Z&source=universe&size=1&apikey=" + KEY,
+		"key": "universe",
+		"index": 11
+	},
+	"fg-jan": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-01-01T00:00:00Z&endDateTime=2016-01-31T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 0
+	},
+	"fg-feb": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-02-01T00:00:00Z&endDateTime=2016-02-29T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 1
+	},
+	"fg-mar": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-03-01T00:00:00Z&endDateTime=2016-03-31T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 2
+	},
+	"fg-apr": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-04-01T00:00:00Z&endDateTime=2016-04-30T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 3
+	},
+	"fg-may": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-05-01T00:00:00Z&endDateTime=2016-05-31T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 4
+	},
+	"fg-june": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-06-01T00:00:00Z&endDateTime=2016-06-30T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 5
+	},
+	"fg-jul": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-07-01T00:00:00Z&endDateTime=2016-07-31T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 6
+	},
+	"fg-aug": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-08-01T00:00:00Z&endDateTime=2016-08-31T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 7
+	},
+	"fg-sep": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-09-01T00:00:00Z&endDateTime=2016-09-31T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 8
+	},
+	"fg-oct": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-10-01T00:00:00Z&endDateTime=2016-10-30T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 9
+	},
+	"fg-nov": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-11-01T00:00:00Z&endDateTime=2016-11-30T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 10
+	},
+	"fg-dec": {
+		"url": "https://app.ticketmaster.com/discovery/v2/events.json?startDateTime=2016-12-01T00:00:00Z&endDateTime=2016-12-31T23:59:59Z&source=frontgate&size=1&apikey=" + KEY,
+		"key": "frontgate",
+		"index": 11
+	}
+};
+
+function callApi(tm) {
+	for (var key in EVENTS) {
+		if (EVENTS.hasOwnProperty(key)) {
+  	  		tm.url = EVENTS[key].url;
+	  		tm.success = function(k) {
+				return function(json) {
+			  		if (json.page) {
+						freqData[EVENTS[k].index].freq[EVENTS[k].key] = json.page.totalElements;
+					}
+					--CNT;
+					if (CNT == 0) {
+						dashboard('#dashboard',freqData);
+					}
+		  	  	};
+	  	  	}(key);
+			++CNT;
+	  		$.ajax(tm);
+	  	}
+	}
+}
+
+function runIt() {
+	var tm = {
+		type:"GET",
+		url: "",
+		success: function(json) {
+			console.log(json);
+		},
+		error: function(xhr, status, err) {
+			console.log(status);
+		}
+	}
+	callApi(tm)
+}
+
+runIt();
+//dashboard('#dashboard',freqData);
 </script>

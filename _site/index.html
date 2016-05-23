@@ -9,6 +9,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   	<script>
   	  window.fbAsyncInit = function() {
   	    FB.init({
@@ -16,6 +17,7 @@
   	      xfbml      : true,
   	      version    : 'v2.6'
   	    });
+		
   	  };
 
   	  (function(d, s, id){
@@ -30,18 +32,55 @@
 
 <body>
 	<script>
+	var myevents = [];
+	var mylocation = '';
+	var tm = {
+		type:"GET",
+		url: "",
+		success: function(json) {
+			console.log(json);
+		},
+		error: function(xhr, status, err) {
+			console.log(status);
+		}
+	}
 	// Only works after `FB.init` is called
 	function myFacebookLogin() {
-	  FB.login(function(){}, {scope: 'publish_actions'});
+	  FB.login(function(){
+		  FB.api("/me/events", function (response) {
+			  if (response && !response.error) {
+				  for (var i=0; i < response.data.length; i++) {
+					  if (response.data[i].rsvp_status == "attending") {
+						  if (response.data[i].description && !response.data[i].description.match(/dinner|birthday|pool/gi)) {
+							  myevents.push(response.data[i]);
+							  tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&keyword=" + response.data[i].name;
+							  
+							  tm.success = function(json) {
+								  if (json._embedded && json._embedded.events) {
+									  var dv = document.getElementById('content');
+									  var dd = json._embedded.events;
+									  for (var i=0; i < dd.length; i++) {
+										  for (var k=0; k < dd[i].images.length; k++) {
+											  if (dd[i].images[k].width == "640" && dd[i].images[k].ratio == "16_9") {
+										  		var nd = document.createElement("span");
+										  	  	var cn = "<p>" + dd[i].name + "</p><a href='" + dd[i].url + "'><img src='" + dd[i].images[0].url + "' width='500' /></a><br /><br />";
+										  	  	nd.innerHTML = cn;
+										  	  	dv.appendChild(nd);
+											  }
+										  }
+									  }
+								  }
+							  }
+							  $.ajax(tm);
+						  }					  
+					  }
+				  }
+		      }
+		  });
+	  }, {scope: 'public_profile,user_likes,user_location,user_events'});
 	}
 	</script>
 	<button onclick="myFacebookLogin()">Login with Facebook</button>
-	
-	<div
-	  class="fb-like"
-	  data-share="true"
-	  data-width="450"
-	  data-show-faces="true">
-	</div>
+	<div id="content"></div>
 </body>
 </html>
