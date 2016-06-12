@@ -27,7 +27,8 @@
 				console.log(status);
 			}
 		}
-  	  	tm.url = "https://app.ticketmaster.com/discovery/v2/events.json?size=500&apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&source=" + document.getElementById("source").value + "&startDateTime=" + new Date().toISOString().slice(0,19) + "Z";
+		var blacklisted = ["parking", "offer", "meal", "service", "pass", "voucher", "VIP", "park and ride", "shuttle", "buy", "purchase", "upgrade", "fast lane", "skip the line", "seat", "access"];
+  	  	tm.url = encodeURI("https://app.ticketmaster.com/discovery/v2/events.json?size=500&apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&source=" + document.getElementById("source").value + "&city=" + document.getElementById("city").value);
   
 	  	tm.success = function(json) {
 		  if (json._embedded && json._embedded.events) {
@@ -36,7 +37,7 @@
 			  for (var i=0; i < dd.length; i++) {
 				  var dn = false;
 				  for (var k=0; k < dd[i].images.length; k++) {
-					  if (!dd[i].images[k].fallback && !dn && dd[i].images[k].width > 300) {
+					  if (!dn && dd[i].images[k].width > 300 && !new RegExp(blacklisted.join("|"), "i").test(dd[i].name)) {
 						  dn = true;
 						  var nd = document.createElement("span");
 						  var cn = "<a href='" + dd[i].url + "' target='_blank'><img src='" + dd[i].images[k].url + "' title='" + dd[i].name + "' width='320' height='240' /></a>";
@@ -51,7 +52,11 @@
 	  $.ajax(tm);
   }
 	</script>
-	<div><input id="source" value="frontgate" /><button onclick="processLogic()">Get me images!</button></div>
+	<div>
+		Source: <input id="source" value="ticketmaster" /><br />
+		City: <input id="city" value="Los Angeles" /><br />
+		<button onclick="processLogic()">Get me images!</button>
+	</div>
 	<div id="content"></div>
 </body>
 </html>
