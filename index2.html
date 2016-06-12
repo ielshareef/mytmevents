@@ -27,7 +27,7 @@
 				console.log(status);
 			}
 		}
-		var blacklisted = ["parking", "offer", "meal", "service", "pass", "voucher", "VIP", "park and ride", "shuttle", "buy", "purchase", "upgrade", "fast lane", "skip the line", "seat", "access"];
+		var blacklisted = ["parking", "offer", "meal", "service", "pass", "voucher", "VIP", "park and ride", "shuttle", "buy", "purchase", "upgrade", "fast lane", "skip the line", "seat", "access", "premium", "membership"];
   	  	tm.url = encodeURI("https://app.ticketmaster.com/discovery/v2/events.json?size=500&apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&source=" + document.getElementById("source").value + "&city=" + document.getElementById("city").value);
   
 	  	tm.success = function(json) {
